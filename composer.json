@@ -1,0 +1,21 @@
+{
+	"name"       : "johnbillion/user-switching-duo-security",
+	"description": "",
+	"homepage"   : "https://github.com/johnbillion/user-switching-duo-security",
+	"type"       : "wordpress-plugin",
+	"license"    : "GPL-2.0-or-later",
+	"authors"    : [
+		{
+			"name"    : "John Blackbourn",
+			"homepage": "https://johnblackbourn.com/"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/johnbillion/user-switching-duo-security/issues",
+		"source": "https://github.com/johnbillion/user-switching-duo-security"
+	},
+	"require": {
+		"composer/installers": "^1",
+    "johnbillion/user-switching": "^1.5.6"
+	}
+}
