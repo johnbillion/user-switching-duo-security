@@ -1,6 +1,6 @@
 {
 	"name"       : "johnbillion/user-switching-duo-security",
-	"description": "",
+	"description": "User Switching add-on plugin so it plays nicely with Duo Security.",
 	"homepage"   : "https://github.com/johnbillion/user-switching-duo-security",
 	"type"       : "wordpress-plugin",
 	"license"    : "GPL-2.0-or-later",
@@ -16,6 +16,6 @@
 	},
 	"require": {
 		"composer/installers": "^1",
-    "johnbillion/user-switching": "^1.5.6"
+		"johnbillion/user-switching": "^1"
 	}
 }
