@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: User Switching for Duo Security
-Description: Add-on plugin for User Switching which allows it to play nicely with Duo Security
-Version:     1.0
+Description: Add-on plugin for User Switching which allows it to play nicely with Duo Security (supports both legacy duo-wordpress and new duo-universal plugins)
+Version:     1.1
 Author:      John Blackbourn
 Author URI:  https://johnblackbourn.com/
 License:     GPL v2 or later
@@ -23,6 +23,15 @@ GNU General Public License for more details.
 */
 
 function user_switching_duo_set_cookie( $user_id ) {
+	// Support for the new duo-universal plugin
+	global $duoup_plugin;
+	if ( isset( $duoup_plugin ) && is_object( $duoup_plugin ) ) {
+		$duoup_plugin->clear_user_auth( $user_id );
+		$duoup_plugin->update_user_auth_status( $user_id, 'authenticated' );
+		return;
+	}
+
+	// Support for the legacy duo-wordpress plugin
 	if ( function_exists( 'duo_set_cookie' ) ) {
 		duo_unset_cookie();
 		duo_set_cookie( new WP_User( $user_id ) );
