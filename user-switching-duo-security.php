@@ -34,8 +34,6 @@ add_action( 'switch_to_user',   'user_switching_duo_set_cookie' );
 add_action( 'switch_back_user', 'user_switching_duo_set_cookie' );
 
 /* Actions to allow the plugin to be used with Duo Universal. */
-add_action( 'switch_to_user',   'user_switching_duo_set_authentication', 1 );
-add_action( 'switch_back_user', 'user_switching_duo_set_authentication', 1 );
 
 /**
  * Sets the 'duo_auth_status' user meta on the user we're switching to.
@@ -50,3 +48,6 @@ add_action( 'switch_back_user', 'user_switching_duo_set_authentication', 1 );
 function user_switching_duo_set_authentication( $user_id ) {
 	update_user_meta( $user_id, 'duo_auth_status', 'authenticated' );
 }
+
+add_action( 'switch_to_user',   'user_switching_duo_set_authentication', 1 );
+add_action( 'switch_back_user', 'user_switching_duo_set_authentication', 1 );
