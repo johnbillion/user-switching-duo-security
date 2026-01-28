@@ -25,7 +25,9 @@ GNU General Public License for more details.
 function user_switching_duo_set_cookie( $user_id ) {
 	// Support for the new duo-universal plugin
 	global $duoup_plugin;
-	if ( isset( $duoup_plugin ) && is_object( $duoup_plugin ) ) {
+	if ( isset( $duoup_plugin ) && is_object( $duoup_plugin ) && 
+	     method_exists( $duoup_plugin, 'clear_user_auth' ) && 
+	     method_exists( $duoup_plugin, 'update_user_auth_status' ) ) {
 		$duoup_plugin->clear_user_auth( $user_id );
 		$duoup_plugin->update_user_auth_status( $user_id, 'authenticated' );
 		return;
