@@ -23,38 +23,33 @@ GNU General Public License for more details.
 */
 
 /**
- * Handles the Duo Security authentication state when switching users.
+ * Handles the legacy Duo Security plugin authentication when switching users.
  *
- * Supports both the legacy Duo Security plugin and the newer Duo Universal plugin.
- *
- * @param int      $user_id     The ID of the user being switched to.
- * @param int|false $old_user_id The ID of the user being switched from, or false if not known.
+ * @param int $user_id The ID of the user being switched to.
  */
-function user_switching_duo_set_auth( $user_id, $old_user_id = false ) {
-	// Support for the legacy Duo Security plugin.
+function user_switching_duo_set_cookie( $user_id ) {
 	if ( function_exists( 'duo_set_cookie' ) ) {
 		duo_unset_cookie();
 		duo_set_cookie( new WP_User( $user_id ) );
-		return;
-	}
-
-	// Support for the Duo Universal plugin.
-	if ( class_exists( 'Duo\DuoUniversalWordpress\DuoUniversal_WordpressPlugin' ) ) {
-		global $duoup_plugin;
-
-		if ( ! isset( $duoup_plugin ) ) {
-			return;
-		}
-
-		// Clear auth state for the old user if known.
-		if ( $old_user_id ) {
-			$duoup_plugin->clear_user_auth( $old_user_id );
-		}
-
-		// Mark the new user as authenticated with Duo.
-		$duoup_plugin->update_user_auth_status( $user_id, 'authenticated' );
 	}
 }
 
-add_action( 'switch_to_user',   'user_switching_duo_set_auth', 10, 2 );
-add_action( 'switch_back_user', 'user_switching_duo_set_auth', 10, 2 );
+add_action( 'switch_to_user',   'user_switching_duo_set_cookie' );
+add_action( 'switch_back_user', 'user_switching_duo_set_cookie' );
+
+/**
+ * Sets the 'duo_auth_status' user meta on the user we're switching to.
+ *
+ * Duo Universal, which supplants the duo-wordpress plugin, uses a user meta of
+ * 'duo_auth_status' = 'authenticated' to determine if a user has been authenticated
+ * by Duo MFA. This sets that meta on the user we're switching to (or switching back
+ * to.)
+ *
+ * @param int $user_id The user ID we're switching (back) to.
+ */
+function user_switching_duo_set_authentication( $user_id ) {
+	update_user_meta( $user_id, 'duo_auth_status', 'authenticated' );
+}
+
+add_action( 'switch_to_user',   'user_switching_duo_set_authentication', 1 );
+add_action( 'switch_back_user', 'user_switching_duo_set_authentication', 1 );
