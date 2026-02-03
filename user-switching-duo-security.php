@@ -8,7 +8,7 @@ Author URI:  https://johnblackbourn.com/
 License:     GPL v2 or later
 Network:     true
 
-Copyright © 2015 John Blackbourn
+Copyright © 2015-2026 John Blackbourn
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
