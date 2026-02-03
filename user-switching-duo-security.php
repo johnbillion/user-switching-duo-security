@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: User Switching for Duo Security
-Description: Add-on plugin for User Switching which allows it to play nicely with Duo Security
+Plugin Name: User Switching for Duo
+Description: Add-on plugin for User Switching which allows it to play nicely with Duo Universal and Duo Security
 Version:     1.1
 Author:      John Blackbourn
 Author URI:  https://johnblackbourn.com/
